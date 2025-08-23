@@ -30,7 +30,7 @@
 .avatarMenu__item { display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; }
 .avatarMenu__item:hover { background:#f9fafb; }
 .avatarMenu__sep { height:1px; background:#e5e7eb; margin:6px 0; }
-.avatarMenu__logout { width:100%; text-align:left; color:#c22; }
+.avatarMenu__logout { width:100%; text-align:left; color:#c22; cursor: pointer;}
 .dot { width:8px; height:8px; border-radius:999px; background:#9ca3af; }
 .dot--online { background:#10b981; }
 .dot--offline { background:#ef4444; }
@@ -48,7 +48,7 @@
 .btn { padding: 8px 12px; border-radius: 6px; border: 1px solid #111; }
 .btn--primary { background:#10b981; border-color:#10b981; color:#fff }
 .btn--ghost { background: transparent; border-color: #ddd; }
-.btn--danger { background: #fff; color: #c22; border-color: #c22; }
+.btn--danger { background: #fff; color: #c22; border-color: #c22; cursor: pointer; }
 .btn--link { background: transparent; border: none; color: #111; padding: 0; }
 
 /* Tasks */

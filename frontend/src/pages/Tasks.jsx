@@ -2,14 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { api } from "../api/client.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { io } from "socket.io-client";
-import { useSocketStatus } from "../hooks/useSocketStatus.js";
+//import { useSocketStatus } from "../hooks/useSocketStatus.js";
 import TaskBoard from "../components/TaskBoard.jsx";
 import ConfirmModal from "../components/ConfirmModal.jsx";
 import EditTaskModal from "../components/EditTaskModal.jsx";
 import toast from "react-hot-toast";
 
 export default function Tasks() {
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
@@ -30,7 +30,7 @@ export default function Tasks() {
     () => io(socketUrl, { autoConnect: true }),
     [socketUrl]
   );
-  const online = useSocketStatus(socket);
+  //const online = useSocketStatus(socket);
 
   useEffect(() => {
     api
@@ -54,11 +54,11 @@ export default function Tasks() {
     return () => socket.disconnect();
   }, [socket]);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    window.location.href = "/login";
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("token");
+  //   setUser(null);
+  //   window.location.href = "/login";
+  // };
 
   const submitTask = async (e) => {
     e.preventDefault();
@@ -127,6 +127,7 @@ export default function Tasks() {
           </div>
         )}
         <select
+          style={{ cursor: "pointer" }}
           value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
         >
