@@ -8,6 +8,7 @@ Full‑stack task manager with JWT auth and real‑time updates via Socket.IO. B
 - Create/edit/delete tasks with categories (Work, Personal, Urgent)
 - Mark complete/incomplete
 - Real‑time updates across clients (Socket.IO)
+- Multi‑user board: everyone sees changes instantly (create/update/delete) without refresh; cards show task owner
 - Responsive UI (mobile → desktop)
 - Toast notifications (react‑hot‑toast)
 - Polished UX: avatar dropdown, edit/delete confirmations, modal editor
@@ -41,6 +42,12 @@ model Task {
   updatedAt   DateTime @updatedAt
 }
 ```
+
+## Live Demo
+
+- Frontend (Vercel): [task-manager-fullstack-eta.vercel.app](https://task-manager-fullstack-eta.vercel.app/login)
+
+Open the frontend link above, register, and start adding tasks. Open the app in two browser windows to see live updates.
 
 ## Environment Variables
 
@@ -108,6 +115,13 @@ Open `http://localhost:5173`.
   - `taskUpdated` → payload: `Task`
   - `taskDeleted` → payload: `{ id }`
 - Client subscribes and updates UI accordingly; also shows toasts on add/edit/delete.
+
+### Multi‑user behavior
+
+- All tasks are visible to every logged‑in user.
+- Each task includes its owner (`user { id, name, email }`); cards render an owner chip.
+- Edit/Delete controls are only visible to the owner; others can view and mark complete on their own tasks only (if enabled in policies).
+- No page refresh required: Socket.IO pushes `taskCreated`, `taskUpdated`, `taskDeleted` to all connected clients.
 
 ## Directory Structure
 
