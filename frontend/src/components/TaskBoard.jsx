@@ -6,6 +6,7 @@ export default function TaskBoard({
   onDelete,
   onEdit,
   categories,
+  currentUserId,
 }) {
   const groups = categories.length
     ? categories
@@ -31,6 +32,7 @@ export default function TaskBoard({
                   onToggle={onToggle}
                   onDelete={onDelete}
                   onEdit={onEdit}
+                  currentUserId={currentUserId}
                 />
               ))}
           </div>

@@ -1,4 +1,10 @@
-export default function TaskCard({ task, onToggle, onDelete, onEdit }) {
+export default function TaskCard({
+  task,
+  onToggle,
+  onDelete,
+  onEdit,
+  currentUserId,
+}) {
   const dateStr = task.createdAt
     ? new Date(task.createdAt).toLocaleDateString("en-GB")
     : "";
@@ -8,51 +14,53 @@ export default function TaskCard({ task, onToggle, onDelete, onEdit }) {
         <h3 className={`taskCard__title ${task.completed ? "strike" : ""}`}>
           {task.title}
         </h3>
-        <div className="taskCard__icons">
-          <button
-            className="iconBtn iconBtn--success"
-            title="Edit"
-            aria-label="Edit"
-            onClick={() => onEdit(task)}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        {(!task.user || task.user.id === currentUserId) && (
+          <div className="taskCard__icons">
+            <button
+              className="iconBtn iconBtn--success"
+              title="Edit"
+              aria-label="Edit"
+              onClick={() => onEdit(task)}
             >
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-            </svg>
-          </button>
-          <button
-            className="iconBtn iconBtn--danger"
-            title="Delete"
-            aria-label="Delete"
-            onClick={() => onDelete(task)}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+              </svg>
+            </button>
+            <button
+              className="iconBtn iconBtn--danger"
+              title="Delete"
+              aria-label="Delete"
+              onClick={() => onDelete(task)}
             >
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-              <path d="M10 11v6" />
-              <path d="M14 11v6" />
-              <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
-            </svg>
-          </button>
-        </div>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                <path d="M10 11v6" />
+                <path d="M14 11v6" />
+                <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
       {task.description && (
         <div className="taskCard__desc">{task.description}</div>
@@ -68,6 +76,11 @@ export default function TaskCard({ task, onToggle, onDelete, onEdit }) {
           <span>Mark complete</span>
         </label>
         <div className="taskCard__meta">
+          {task.user && (
+            <span className="chip" title={task.user.email}>
+              {task.user.name || task.user.email}
+            </span>
+          )}
           <span className={`chip chip--${task.category.toLowerCase()}`}>
             {task.category}
           </span>

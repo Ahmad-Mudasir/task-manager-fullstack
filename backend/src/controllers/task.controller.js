@@ -14,10 +14,10 @@ const updateSchema = z.object({
   completed: z.boolean().optional(),
 });
 
-export async function listTasks(req, res) {
+export async function listTasks(_req, res) {
   const tasks = await prisma.task.findMany({
-    where: { userId: req.user.id },
     orderBy: { createdAt: "desc" },
+    include: { user: { select: { id: true, name: true, email: true } } },
   });
   res.json(tasks);
 }
@@ -28,6 +28,7 @@ export async function createTask(req, res) {
     return res.status(400).json({ error: parsed.error.flatten() });
   const task = await prisma.task.create({
     data: { ...parsed.data, userId: req.user.id },
+    include: { user: { select: { id: true, name: true, email: true } } },
   });
   try {
     req.app.get("io")?.emit("taskCreated", task);
@@ -47,6 +48,7 @@ export async function updateTask(req, res) {
   const updated = await prisma.task.update({
     where: { id },
     data: parsed.data,
+    include: { user: { select: { id: true, name: true, email: true } } },
   });
   try {
     req.app.get("io")?.emit("taskUpdated", updated);

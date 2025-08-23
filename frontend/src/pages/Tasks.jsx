@@ -142,6 +142,7 @@ export default function Tasks() {
         onToggle={toggle}
         onDelete={remove}
         onEdit={startEdit}
+        currentUserId={user?.id}
         categories={["Work", "Personal", "Urgent"]}
       />
 
