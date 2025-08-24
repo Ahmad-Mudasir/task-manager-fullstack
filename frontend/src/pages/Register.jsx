@@ -18,8 +18,9 @@ export default function Register() {
       toast.success("Account created successfully");
       navigate("/login");
     } catch (err) {
-      setError(err?.response?.data?.error || "Register failed");
-      toast.error(err?.response?.data?.error || "Register failed");
+      const message = err?.response?.data?.error || "Register failed";
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -34,6 +35,7 @@ export default function Register() {
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+            required
           />
           <label>Email</label>
           <input

@@ -4,15 +4,19 @@ import jwt from "jsonwebtoken";
 import { z } from "zod";
 
 const registerSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-  name: z.string().min(1).optional(),
+  email: z.string().email({ message: "Valid email is required" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+  name: z.string().trim().min(1, { message: "Name is required" }),
 });
 
 export async function register(req, res) {
   const parsed = registerSchema.safeParse(req.body);
-  if (!parsed.success)
-    return res.status(400).json({ error: parsed.error.flatten() });
+  if (!parsed.success) {
+    const first = parsed.error.errors?.[0]?.message || "Invalid input";
+    return res.status(400).json({ error: first });
+  }
   const { email, password, name } = parsed.data;
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) return res.status(409).json({ error: "Email already in use" });
