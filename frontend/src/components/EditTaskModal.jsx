@@ -1,8 +1,8 @@
 import { useState } from "react";
 export default function EditTaskModal({ open, task, onSave, onClose }) {
-  if (!open || !task) return null;
-
   const [errors, setErrors] = useState({ title: "", description: "" });
+
+  if (!open || !task) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,11 +19,14 @@ export default function EditTaskModal({ open, task, onSave, onClose }) {
   };
 
   return (
-    <div className="modal" role="dialog" aria-modal="true">
-      <div className="modal__backdrop" onClick={onClose} />
-      <div className="modal__card">
-        <h3 className="modal__title">Edit task</h3>
-        <form className="form" onSubmit={handleSubmit}>
+    <div className="fixed inset-0 z-50 grid place-items-center">
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-md rounded-2xl bg-transparent border-2 border-[#0ef] shadow-[0_12px_30px_rgba(0,238,255,.18)] p-4 text-slate-100">
+        <h3 className="text-lg font-bold">Edit task</h3>
+        <form className="mt-3 space-y-3" onSubmit={handleSubmit}>
           <input
             name="title"
             defaultValue={task.title}
@@ -33,9 +36,10 @@ export default function EditTaskModal({ open, task, onSave, onClose }) {
               errors.title && setErrors((p) => ({ ...p, title: "" }))
             }
             required
+            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none"
           />
           {errors.title && (
-            <div style={{ color: "crimson", fontSize: 12 }}>{errors.title}</div>
+            <div className="text-red-600 text-xs">{errors.title}</div>
           )}
           <input
             name="description"
@@ -47,26 +51,32 @@ export default function EditTaskModal({ open, task, onSave, onClose }) {
               setErrors((p) => ({ ...p, description: "" }))
             }
             required
+            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none"
           />
           {errors.description && (
-            <div style={{ color: "crimson", fontSize: 12 }}>
-              {errors.description}
-            </div>
+            <div className="text-red-600 text-xs">{errors.description}</div>
           )}
-          <select name="category" defaultValue={task.category}>
+          <select
+            name="category"
+            defaultValue={task.category}
+            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none"
+          >
             <option>Work</option>
             <option>Personal</option>
             <option>Urgent</option>
           </select>
-          <div className="modal__actions">
+          <div className="mt-2 flex justify-end gap-2">
             <button
               type="button"
-              className="btn btn--secondary"
+              className="px-4 py-2 rounded-xl border cursor-pointer border-slate-300 hover:bg-white/10 hover:shadow-[0_8px_20px_rgba(148,163,184,.25)]"
               onClick={onClose}
             >
               Cancel
             </button>
-            <button type="submit" className="btn btn--primary">
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-xl border-2 cursor-pointer border-[#0ef] hover:bg-white/10 hover:shadow-[0_8px_20px_rgba(16,185,129,.35)]"
+            >
               Save
             </button>
           </div>
