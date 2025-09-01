@@ -101,41 +101,65 @@ export default function Tasks() {
     setEditingTask(task);
   };
 
-  if (loading) return <div className="container">Loading tasks...</div>;
+  if (loading)
+    return (
+      <div className="max-w-[1200px] mx-auto px-4 py-6">Loading tasks...</div>
+    );
 
   return (
-    <div className="container">
-      <h2>Tasks</h2>
+    <div className="max-w-[1200px] mx-auto px-4   py-6">
+      <h2 className="text-2xl font-extrabold mb-4 flex items-center gap-2">
+        Tasks
+        <span className="text-xs rounded-full px-2 py-0.5 text-emerald-300 border border-emerald-400/60 bg-emerald-500/10">
+          Realtime
+        </span>
+      </h2>
 
-      <form onSubmit={submitTask} className="form" style={{ marginBottom: 16 }}>
-        <input
-          placeholder="Title"
-          value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
-        />
-        {errors.title && (
-          <div style={{ color: "crimson", fontSize: 12 }}>{errors.title}</div>
-        )}
-        <input
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-        />
-        {errors.description && (
-          <div style={{ color: "crimson", fontSize: 12 }}>
-            {errors.description}
-          </div>
-        )}
-        <select
-          style={{ cursor: "pointer" }}
-          value={form.category}
-          onChange={(e) => setForm({ ...form, category: e.target.value })}
-        >
-          <option>Work</option>
-          <option>Personal</option>
-          <option>Urgent</option>
-        </select>
-        <button type="submit">{editingId ? "Save Changes" : "Add Task"}</button>
+      <form
+        onSubmit={submitTask}
+        className="grid md:grid-cols-3 gap-3 mb-6 rounded-2xl bg-transparent border-2 border-[#0ef] p-3 shadow-[0_12px_30px_rgba(0,238,255,.18)]"
+      >
+        <div className="col-span-1">
+          <input
+            placeholder="Title"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100 placeholder:text-slate-400"
+          />
+          {errors.title && (
+            <div className="text-red-300 text-xs mt-1">{errors.title}</div>
+          )}
+        </div>
+        <div className="col-span-1">
+          <input
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100 placeholder:text-slate-400"
+          />
+          {errors.description && (
+            <div className="text-red-300 text-xs mt-1">
+              {errors.description}
+            </div>
+          )}
+        </div>
+        <div className="grid grid-cols-1 gap-2 md:flex">
+          <select
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+            className="h-11 w-full md:flex-1 rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100"
+          >
+            <option>Work</option>
+            <option>Personal</option>
+            <option>Urgent</option>
+          </select>
+          <button
+            type="submit"
+            className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+          >
+            {editingId ? "Save Changes" : "Add"}
+          </button>
+        </div>
       </form>
 
       <TaskBoard
