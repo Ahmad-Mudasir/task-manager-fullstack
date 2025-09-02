@@ -79,37 +79,37 @@ export default function Register() {
 
           <form onSubmit={onSubmit} className="space-y-3">
             <label className="block text-sm text-slate-200">Name</label>
-            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef] bg-transparent px-3 h-12">
+            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 h-12 focus-within:border-[#0ef] focus-within:shadow-[0_0_12px_rgba(0,238,255,.35)]">
               <input
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
-                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400"
+                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400/70"
               />
             </div>
 
             <label className="block text-sm text-slate-200">
               Email address
             </label>
-            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef] bg-transparent px-3 h-12">
+            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 h-12 focus-within:border-[#0ef] focus-within:shadow-[0_0_12px_rgba(0,238,255,.35)]">
               <input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
-                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400"
+                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400/70"
               />
             </div>
 
             <label className="block text-sm text-slate-200">Password</label>
-            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef] bg-transparent px-3 h-12">
+            <div className="flex items-center gap-2 rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 h-12 focus-within:border-[#0ef] focus-within:shadow-[0_0_12px_rgba(0,238,255,.35)]">
               <input
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 required
                 minLength={6}
-                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400"
+                className="w-full bg-transparent outline-none text-slate-100 placeholder:text-slate-400/70"
               />
             </div>
 
@@ -118,7 +118,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+              className="w-full h-12 rounded-xl border-2 border-[#0ef] text-[#0ef] bg-transparent shadow-[0_0_0] cursor-pointer transition-all duration-200 hover:bg-[#0ef]/10 hover:shadow-glow hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Creating..." : "Sign up"}
             </button>
