@@ -146,14 +146,14 @@ export default function Tasks() {
 
       <form
         onSubmit={submitTask}
-        className="grid md:grid-cols-3 gap-3 mb-6 rounded-2xl border-2 border-white/10 bg-white/[0.03] p-3 shadow-[0_0_4px_2px_rgba(0,238,255,0.18)]"
+        className="grid md:grid-cols-3 gap-4 md:gap-3 mb-6 rounded-2xl border-2 border-white/10 bg-white/[0.03] p-4 md:p-3 shadow-[0_0_4px_2px_rgba(0,238,255,0.18)]"
       >
         <div className="col-span-1">
           <input
             placeholder="Title"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100 placeholder:text-slate-400"
+            className="h-12 w-full rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 outline-none text-slate-100 placeholder:text-slate-400/70 transition focus:border-[#0ef] focus:shadow-[0_0_12px_rgba(0,238,255,.35)]"
           />
           {errors.title && (
             <div className="text-red-300 text-xs mt-1">{errors.title}</div>
@@ -164,7 +164,7 @@ export default function Tasks() {
             placeholder="Description"
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="h-11 w-full rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100 placeholder:text-slate-400"
+            className="h-12 w-full rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 outline-none text-slate-100 placeholder:text-slate-400/70 transition focus:border-[#0ef] focus:shadow-[0_0_12px_rgba(0,238,255,.35)]"
           />
           {errors.description && (
             <div className="text-red-300 text-xs mt-1">
@@ -172,11 +172,11 @@ export default function Tasks() {
             </div>
           )}
         </div>
-        <div className="grid grid-cols-1 gap-2 md:flex">
+        <div className="grid grid-cols-1 gap-4 md:gap-2 md:flex md:items-center">
           <select
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
-            className="h-11 w-full md:flex-1 rounded-xl border border-cyan-300/60 bg-transparent px-3 outline-none text-slate-100"
+            className="h-12 w-full md:flex-1 rounded-xl border-2 border-[#0ef]/40 bg-transparent px-4 outline-none text-slate-100 transition focus:border-[#0ef] focus:shadow-[0_0_12px_rgba(0,238,255,.35)]"
           >
             <option>Work</option>
             <option>Personal</option>
@@ -185,7 +185,7 @@ export default function Tasks() {
           {editingId ? (
             <button
               type="submit"
-              className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+              className="h-11 w-full md:w-auto px-4 rounded-xl border-2 border-[#0ef] text-[#0ef] bg-transparent shadow-[0_0_0] cursor-pointer"
             >
               Save Changes
             </button>
@@ -200,7 +200,7 @@ export default function Tasks() {
           ) : (
             <button
               type="submit"
-              className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+              className="h-11 w-full md:w-auto px-4 rounded-xl border-2 border-[#0ef] text-[#0ef] bg-transparent shadow-[0_0_0] cursor-pointer transition-all duration-200 hover:bg-[#0ef]/10 hover:shadow-glow hover:scale-105"
             >
               Add
             </button>
