@@ -18,7 +18,7 @@ export default function TaskBoard({
         {groups.map((cat) => (
           <div
             key={cat}
-            className="shrink-0 min-w-[280px] sm:min-w-[320px] lg:min-w-[360px] rounded-2xl bg-transparent border-2 border-white/10 bg-white/[0.03]  p-5 sm:p-6 shadow-[0_0_10px_#00eeff22] overflow-hidden"
+            className="shrink-0 min-w-[280px] sm:min-w-[320px] lg:min-w-[360px] rounded-2xl  border-2 border-white/10 bg-white/[0.03]  p-5 sm:p-6 shadow-[0_0_10px_#00eeff22] overflow-hidden"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="font-bold text-slate-100 tracking-wide">

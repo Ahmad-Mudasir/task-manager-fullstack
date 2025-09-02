@@ -29,7 +29,43 @@ export default function Register() {
   return (
     <div className="min-h-[calc(100vh-64px)] grid md:grid-cols-2">
       <div className="hidden md:flex items-center justify-center p-8">
-        <div className="w-full max-w-md aspect-video rounded-2xl bg-gradient-to-br from-cyan-50 to-emerald-50 border border-cyan-100 shadow-[0_12px_30px_rgba(0,238,255,.18)]" />
+        <div className="w-full max-w-md rounded-2xl border-2 border-[#0ef] bg-white/10 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,238,255,.18)] p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-xl border-2 border-[#0ef] grid place-items-center">
+              <svg
+                className="w-6 h-6 text-[#0ef]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 00-3-3.87M4 21v-2a4 4 0 013-3.87M7 7a4 4 0 118 0 4 4 0 01-8 0z"></path>
+              </svg>
+            </div>
+            <h3 className="text-2xl font-extrabold text-white">
+              Join TaskFlow
+            </h3>
+          </div>
+          <p className="text-slate-200 text-sm leading-relaxed mb-3">
+            Create your account to collaborate and stay in sync in real time.
+          </p>
+          <ul className="text-slate-300 text-sm space-y-2">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0ef]"></span>
+              Secure authentication (JWT)
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0ef]"></span>
+              Real‑time updates with Socket.IO
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0ef]"></span>
+              Trello‑style task board
+            </li>
+          </ul>
+        </div>
       </div>
       <div className="flex items-center justify-center p-6">
         <div className="w-full max-w-sm bg-transparent border-2 border-[#0ef] shadow-[0_12px_30px_rgba(0,238,255,.18)] rounded-2xl p-6">

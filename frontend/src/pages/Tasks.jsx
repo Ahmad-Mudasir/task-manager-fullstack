@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 
 export default function Tasks() {
   const { user } = useAuth();
+  const displayName =
+    user?.name || (user?.email ? user.email.split("@")[0] : "");
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
@@ -21,6 +23,7 @@ export default function Tasks() {
   const [errors, setErrors] = useState({ title: "", description: "" });
   const [pendingDelete, setPendingDelete] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
+  const [adding, setAdding] = useState(false);
 
   const socketUrl =
     import.meta.env.VITE_SOCKET_URL ||
@@ -68,14 +71,19 @@ export default function Tasks() {
       nextErrors.description = "Description is required";
     setErrors(nextErrors);
     if (nextErrors.title || nextErrors.description) return;
-    const { data } = await api.post("/api/tasks", form);
-    // Optimistically add; socket will reconcile
-    setTasks((prev) =>
-      prev.some((x) => x.id === data.id) ? prev : [data, ...prev]
-    );
-    toast.success("Task added successfully");
-    setForm({ title: "", description: "", category: "Work" });
-    setErrors({ title: "", description: "" });
+    try {
+      setAdding(true);
+      const { data } = await api.post("/api/tasks", form);
+      // Optimistically add; socket will reconcile
+      setTasks((prev) =>
+        prev.some((x) => x.id === data.id) ? prev : [data, ...prev]
+      );
+      toast.success("Task added successfully");
+      setForm({ title: "", description: "", category: "Work" });
+      setErrors({ title: "", description: "" });
+    } finally {
+      setAdding(false);
+    }
   };
 
   const toggle = async (task) => {
@@ -115,9 +123,30 @@ export default function Tasks() {
         </span>
       </h2>
 
+      {user && (
+        <div className="mb-5">
+          <div className="relative overflow-hidden rounded-2xl border-2 border-white/10 bg-white/[0.03] p-4 shadow-[0_0_4px_2px_rgba(0,238,255,0.18)]">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full border-2 border-[#0ef] grid place-items-center text-[#0ef] font-bold">
+                {displayName?.[0]?.toUpperCase()}
+              </div>
+              <div>
+                <div className="text-sm text-slate-300">Welcome back</div>
+                <div className="text-lg font-extrabold tracking-wide">
+                  {displayName}
+                </div>
+              </div>
+              <div className="ml-auto text-xs text-slate-300">
+                Have a productive day ✨
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <form
         onSubmit={submitTask}
-        className="grid md:grid-cols-3 gap-3 mb-6 rounded-2xl bg-transparent border-2 border-[#0ef] p-3 shadow-[0_12px_30px_rgba(0,238,255,.18)]"
+        className="grid md:grid-cols-3 gap-3 mb-6 rounded-2xl border-2 border-white/10 bg-white/[0.03] p-3 shadow-[0_0_4px_2px_rgba(0,238,255,0.18)]"
       >
         <div className="col-span-1">
           <input
@@ -153,12 +182,29 @@ export default function Tasks() {
             <option>Personal</option>
             <option>Urgent</option>
           </select>
-          <button
-            type="submit"
-            className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
-          >
-            {editingId ? "Save Changes" : "Add"}
-          </button>
+          {editingId ? (
+            <button
+              type="submit"
+              className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+            >
+              Save Changes
+            </button>
+          ) : adding ? (
+            <button
+              type="button"
+              disabled
+              className="h-11 w-full md:w-auto px-4 rounded-xl border-2 border-[#0ef] text-[#0ef] bg-transparent shadow-[0_0_0] cursor-not-allowed"
+            >
+              Adding...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="h-11 w-full md:w-auto px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg cursor-pointer"
+            >
+              Add
+            </button>
+          )}
         </div>
       </form>
 
